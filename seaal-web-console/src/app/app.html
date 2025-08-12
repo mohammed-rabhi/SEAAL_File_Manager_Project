@@ -1,0 +1,34 @@
+<!-- src/app/app.html -->
+<div class="panel">
+  <header class="panel-header">
+    <div>
+      <h1>SEAAL — File Status Console</h1>
+      <p class="muted">Displays file statuses from the server (auto-refreshes every 6s)</p>
+    </div>
+    <div class="meta">Backend: {{ apiUrl }}</div>
+  </header>
+
+  <main class="panel-body">
+    <table class="status-table" *ngIf="files && files.length; else empty">
+      <thead>
+        <tr><th style="width:120px">File ID</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let f of files">
+          <td class="id-col">#{{ f.number }}</td>
+          <td>
+            <span class="status-pill" [ngClass]="statusClass(f.status)">{{ statusLabel(f.status) }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #empty>
+      <div class="empty">No files found on the server.</div>
+    </ng-template>
+  </main>
+
+  <footer class="panel-footer">
+    <small>Read-only console · Refreshes automatically</small>
+  </footer>
+</div>
